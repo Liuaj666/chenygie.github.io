@@ -5,15 +5,19 @@
   
 
   
-  <title>Chen_Blog</title>
+  <title>finding_donors | Chen_Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Chen_Blog">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="机器学习项目为CharityML寻找捐献者 监督学习项目介绍：在这个项目中，你将使用1994年美国人口普查收集的数据，选用几个监督学习算法以准确地建模被调查者的收入。然后，你将根据初步结果从中选择出最佳的候选算法，并进一步优化该算法以最好地建模这些数据。你的目标是建立一个能够准确地预测被调查者年收入是否超过50000美元的模型。这种类型的任务会出现在那些依赖于捐款而存在的非营利性组织。了解人">
+<meta property="og:type" content="article">
+<meta property="og:title" content="finding_donors">
+<meta property="og:url" content="http://yoursite.com/2018/07/10/finding-donors/index.html">
 <meta property="og:site_name" content="Chen_Blog">
+<meta property="og:description" content="机器学习项目为CharityML寻找捐献者 监督学习项目介绍：在这个项目中，你将使用1994年美国人口普查收集的数据，选用几个监督学习算法以准确地建模被调查者的收入。然后，你将根据初步结果从中选择出最佳的候选算法，并进一步优化该算法以最好地建模这些数据。你的目标是建立一个能够准确地预测被调查者年收入是否超过50000美元的模型。这种类型的任务会出现在那些依赖于捐款而存在的非营利性组织。了解人">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-07-10T11:21:04.566Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Chen_Blog">
+<meta name="twitter:title" content="finding_donors">
+<meta name="twitter:description" content="机器学习项目为CharityML寻找捐献者 监督学习项目介绍：在这个项目中，你将使用1994年美国人口普查收集的数据，选用几个监督学习算法以准确地建模被调查者的收入。然后，你将根据初步结果从中选择出最佳的候选算法，并进一步优化该算法以最好地建模这些数据。你的目标是建立一个能够准确地预测被调查者年收入是否超过50000美元的模型。这种类型的任务会出现在那些依赖于捐款而存在的非营利性组织。了解人">
   
     <link rel="alternate" href="/atom.xml" title="Chen_Blog" type="application/atom+xml">
   
@@ -64,47 +68,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-finding-donors-1st" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/07/10/finding-donors-1st/" class="article-date">
-  <time datetime="2018-07-10T08:12:48.000Z" itemprop="datePublished">2018-07-10</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/07/10/finding-donors-1st/">finding_donors_1st</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>项目介绍：<br>在这个项目中，你将使用1994年美国人口普查收集的数据，选用几个监督学习算法以准确地建模被调查者的收入。然后，你将根据初步结果从中选择出最佳的候选算法，并进一步优化该算法以最好地建模这些数据。你的目标是建立一个能够准确地预测被调查者年收入是否超过50000美元的模型。这种类型的任务会出现在那些依赖于捐款而存在的非营利性组织。了解人群的收入情况可以帮助一个非营利性的机构更好地了解他们要多大的捐赠，或是否他们应该接触这些人。虽然我们很难直接从公开的资源中推断出一个人的一般收入阶层，但是我们可以（也正是我们将要做的）从其他的一些公开的可获得的资源中获得一些特征从而推断出该值<br><br>这个项目的数据集来自<a href="https://archive.ics.uci.edu/ml/datasets/Census+Income" target="_blank" rel="noopener">UCI机器学习知识库</a>。这个数据集是由Ron Kohavi和Barry Becker在发表文章”Scaling Up the Accuracy of Naive-Bayes Classifiers: A Decision-Tree Hybrid”之后捐赠的，你可以在Ron Kohavi提供的<a href="https://www.aaai.org/Papers/KDD/1996/KDD96-033.pdf" target="_blank" rel="noopener">在线版本</a>中找到这个文章。我们在这里探索的数据集相比于原有的数据集有一些小小的改变，比如说移除了特征’fnlwgt’ 以及一些遗失的或者是格式不正确的记录。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> scipy <span class="keyword">as</span> sp</span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> accuracy_score,precision_score,recall_score,f1_score</span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> MinMaxScaler</span><br><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LogisticRegression</span><br><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> metrics</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">from</span> sklearn.externals <span class="keyword">import</span> joblib</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">train_model</span><span class="params">(data)</span>:</span></span><br><span class="line">  x = data[data.columns[:<span class="number">-1</span>]]</span><br><span class="line">  y = data[data.columns[<span class="number">-1</span>]]</span><br><span class="line">  x_train,x_valid，y_train,y_valid = train_test_split(x,y,test_size=<span class="number">0.3</span>,random_state=<span class="number">0</span>)</span><br><span class="line">  model = LogisticRegression(penalty=<span class="string">'l2'</span>,C=<span class="number">10</span>,class_weight=<span class="string">'balanced'</span>)</span><br><span class="line">  model = fit(x,y)</span><br><span class="line">  <span class="comment">#joblib.dump(model,'lr_model.pkl')</span></span><br><span class="line">  y_valid_pred = model.predict(x_valid)</span><br><span class="line">  print(<span class="string">"valid datasets accuracy_score:"</span>,accuracy_score(y_valid,y_valid_pred))</span><br><span class="line">  print(<span class="string">"valid datasets precision_score:"</span>,precision_score(y_valid,y_valid_pred))</span><br><span class="line">  print(<span class="string">"valid datasets recall_score:"</span>,recall_score(y_valid,y_valid_pred))</span><br><span class="line">  print(<span class="string">"F1 values:"</span>,f1_score(y_valid,y_valid_pred))</span><br><span class="line">  y_valid_prob = model.predict_proba(x_valid)</span><br><span class="line">  fpr,tpr,thresholds = metrics.roc_curve(y_valid,y_vy_valid_prob)</span><br><span class="line">  auc = metrics.auc(fpr,tpr)</span><br><span class="line">  print(<span class="string">"auc"</span>,auc)</span><br><span class="line">  <span class="comment"># 输出ROC曲线</span></span><br><span class="line">  plt.figure(facecolor=<span class="string">'w'</span>)</span><br><span class="line">  plt.plot(fpr,tpr,c=<span class="string">'r'</span>,lw=<span class="number">2</span>,alpha=<span class="number">0.9</span>,label=<span class="string">'AUC%.3f'</span> % auc)</span><br><span class="line">  plt.plot((<span class="number">0</span>,<span class="number">1</span>),(<span class="number">0</span>,<span class="number">1</span>),c=‘b’,lw=<span class="number">1.5</span>,ls=<span class="string">'--'</span>)</span><br><span class="line">  plt.xlim((<span class="number">-0.01</span>,<span class="number">1.02</span>))</span><br><span class="line">  plt.ylim((<span class="number">-0.01</span>,<span class="number">1.02</span>))</span><br><span class="line">  plt.xticks(np.arange(<span class="number">0</span>,<span class="number">1.1</span>,<span class="number">0.1</span>))</span><br><span class="line">  plt.yticks(np.arange(<span class="number">0</span>,<span class="number">1.1</span>,<span class="number">0.1</span>))</span><br><span class="line">  plt.xlabel(<span class="string">'False Positive Rate'</span>,fontsize=<span class="number">14</span>)</span><br><span class="line">  plt.ylabel(<span class="string">'True Positive Rate'</span>,fontsize=<span class="number">14</span>)</span><br><span class="line">  plt.grid(<span class="keyword">True</span>)</span><br><span class="line">  plt.legend(loc=<span class="string">'lower right'</span>,fontsize=<span class="number">14</span>)</span><br><span class="line">  plt.title(<span class="string">"finding_donors ROC and AUC value"</span>,fontsize=<span class="number">17</span>)</span><br><span class="line">  plt.show()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">raw_data = pd.read_csv(<span class="string">"train.csv"</span>)</span><br><span class="line">object_columns = raw_data.select_dtypes(include=[<span class="string">'object'</span>]).columns</span><br><span class="line">num_columns = raw_data.select_dtypes(include=[np.number])</span><br><span class="line"></span><br><span class="line"><span class="comment"># number MinMaxScaler</span></span><br><span class="line">scaler = MinMaxScaler()</span><br><span class="line">raw_data[num_columns] = scaler.fit_transform(raw_data[nnum_columns])</span><br><span class="line"></span><br><span class="line"><span class="comment"># preprocessing categorical</span></span><br><span class="line"><span class="keyword">for</span> name <span class="keyword">in</span> object_columns:</span><br><span class="line">  raw_data[name] = pd.categorical(raw_data[name]).codes</span><br><span class="line"><span class="comment"># 训练数据输出预测结果</span></span><br><span class="line">train_model(raw_data)</span><br><span class="line"></span><br><span class="line"><span class="comment"># kaggle predict fingding donors   test datasets</span></span><br><span class="line"></span><br><span class="line">test_data = pd.read_csv(<span class="string">'test.csv'</span>)</span><br><span class="line"><span class="keyword">for</span> name <span class="keyword">in</span> test_data.columns:</span><br><span class="line">  test_data[<span class="string">'name'</span>] = pd.categorical(test_data[name]).codes</span><br><span class="line">  y_test_pred = model.predict(test_data)</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/07/10/finding-donors-1st/" data-id="cjjflcfck0002jk15yd81jrqd" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-finding-donors" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-finding-donors" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/07/10/finding-donors/" class="article-date">
   <time datetime="2018-07-10T06:53:42.000Z" itemprop="datePublished">2018-07-10</time>
@@ -117,8 +81,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/07/10/finding-donors/">finding_donors</a>
+    <h1 class="article-title" itemprop="name">
+      finding_donors
     </h1>
   
 
@@ -143,228 +107,28 @@
     </footer>
   </div>
   
-</article>
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-change-themes" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/07/10/change-themes/" class="article-date">
-  <time datetime="2018-07-10T06:29:25.000Z" itemprop="datePublished">2018-07-10</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+    <a href="/2018/07/10/finding-donors-1st/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/07/10/change-themes/">change_themes</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>参考文献：<br><a href="https://hexo.io/themes/" target="_blank" rel="noopener">hexo官方相关主题</a><br><a href="http://www.codeblocq.com/assets/projects/hexo-theme-alpha-dust/2016/10/03/Welcome-to-Alpha-Dust/" target="_blank" rel="noopener">hexo配置Alpha主题连接</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/07/10/change-themes/" data-id="cjjflcfcv0005jk15laoerdax" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Hong-yi-Lee-course" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/07/04/Hong-yi-Lee-course/" class="article-date">
-  <time datetime="2018-07-04T00:49:31.000Z" itemprop="datePublished">2018-07-04</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+          finding_donors_1st
         
+      </div>
+    </a>
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/07/04/Hong-yi-Lee-course/">Hong-yi_Lee_course</a>
-    </h1>
   
+    <a href="/2018/07/10/change-themes/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">change_themes</div>
+    </a>
+  
+</nav>
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <table>
-<thead>
-<tr>
-<th style="text-align:center"><a href="http://speech.ee.ntu.edu.tw/~tlkagk/index.html" target="_blank" rel="noopener">Home</a></th>
-<th style="text-align:center"><a href="http://speech.ee.ntu.edu.tw/~tlkagk/talk.html" target="_blank" rel="noopener">DL/ML Tutorial</a></th>
-<th style="text-align:center"><a href="http://speech.ee.ntu.edu.tw/~tlkagk/rtalk.html" target="_blank" rel="noopener">Research_Talk</a></th>
-<th style="text-align:center"><a href="http://speech.ee.ntu.edu.tw/~tlkagk/research.html" target="_blank" rel="noopener">Research</a></th>
-<th style="text-align:center"><a href="http://speech.ee.ntu.edu.tw/~tlkagk/publication.html" target="_blank" rel="noopener">Publication</a></th>
-<th style="text-align:center"><a href="http://speech.ee.ntu.edu.tw/~tlkagk/courses.html" target="_blank" rel="noopener">Course</a></th>
-<th style="text-align:center"><a href="http://speech.ee.ntu.edu.tw/~tlkagk/honor.html" target="_blank" rel="noopener">Honor</a></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center"></td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li><a href="http://speech.ee.ntu.edu.tw/~tlkagk/courses_MLDS18.html" target="_blank" rel="noopener">Machine Learning and having it deep and structured (2018,Spring)</a></li>
-<li><a href="http://speech.ee.ntu.edu.tw/~tlkagk/courses_ML17_2.html" target="_blank" rel="noopener">Machine Learning (2017,Fall)</a></li>
-<li><a href="http://speech.ee.ntu.edu.tw/~tlkagk/courses_MLDS17_2.html" target="_blank" rel="noopener">Machine Learning and having it deep and structured (2017,Fall)</a></li>
-<li><a href="http://speech.ee.ntu.edu.tw/~tlkagk/courses_ML17.html" target="_blank" rel="noopener">Machine Learning (2017,Spring)</a></li>
-<li><a href="http://speech.ee.ntu.edu.tw/~tlkagk/courses_MLDS17.html" target="_blank" rel="noopener">Machine Learning and having it deep and structured (2017,Spring)</a></li>
-<li><a href="http://speech.ee.ntu.edu.tw/~tlkagk/courses_ML16.html" target="_blank" rel="noopener">Machine Learning (2016,Fall)</a></li>
-<li><a href="http://speech.ee.ntu.edu.tw/~tlkagk/courses_LA16.html" target="_blank" rel="noopener">Linear Algebra (2016,Spring)</a></li>
-<li><a href="http://speech.ee.ntu.edu.tw/~tlkagk/courses_MLSD15_2.html" target="_blank" rel="noopener">Machine Learning and having it deep and structured (2015,Fall)</a></li>
-<li>Machine Learning and having it deep and structured (2015,Spring)</li>
-<li><a href="http://speech.ee.ntu.edu.tw/~tlkagk/courses_circuit14.html" target="_blank" rel="noopener">Circuit (2014,Fall)</a></li>
-</ul>
-<h1 id="推荐查看内容"><a href="#推荐查看内容" class="headerlink" title="推荐查看内容"></a>推荐查看内容</h1><ul>
-<li><a href="http://speech.ee.ntu.edu.tw/~tlkagk/courses_MLDS18.html" target="_blank" rel="noopener">Machine Learning and having it deep and structured (2018,Spring)</a></li>
-<li><a href="http://speech.ee.ntu.edu.tw/~tlkagk/courses_ML17_2.html" target="_blank" rel="noopener">Machine Learning (2017,Fall)</a></li>
-</ul>
-<ol>
-<li>第一个是关于最新的深度学习内容，第二个是机器学习内容。</li>
-<li>建议从2017年Machine Learning (2017,Fall)的视频开始看。然后Machine Learning and having it deep and structured (2018,Spring)。毕竟是最新的，2018年的课程中主要将的是deep learning 方面的支持。<br><a href="http://speech.ee.ntu.edu.tw/~tlkagk/courses.html" target="_blank" rel="noopener">参考文献</a></li>
-</ol>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/07/04/Hong-yi-Lee-course/" data-id="cjjflcfcm0003jk157ec6negt" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
   
 </article>
-
-
-  
-    <article id="post-Hexo和GitHub搭建博客" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/07/03/Hexo和GitHub搭建博客/" class="article-date">
-  <time datetime="2018-07-03T15:16:21.000Z" itemprop="datePublished">2018-07-03</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/07/03/Hexo和GitHub搭建博客/">Hexo和GitHub搭建博客</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>1.提前的准备工作，查看上一篇博文，需要安装git 和 node.js的环境。</p>
-<ol start="2">
-<li>使用 npm 安装hexo<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h1 id="开始搭建"><a href="#开始搭建" class="headerlink" title="开始搭建"></a>开始搭建</h1><h2 id="搭建本地博客项目"><a href="#搭建本地博客项目" class="headerlink" title="搭建本地博客项目"></a>搭建本地博客项目</h2><p>新建一个文件夹（Hexo）,安装以下操作。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir Hexo</span><br><span class="line">hexo init ga-hexo</span><br><span class="line">hexo server # 开启本地服务，localhost:4000 ,进行访问</span><br></pre></td></tr></table></figure></p>
-<p>本地搭建完成</p>
-<h2 id="将本地博客项目部署到线上"><a href="#将本地博客项目部署到线上" class="headerlink" title="将本地博客项目部署到线上"></a>将本地博客项目部署到线上</h2><ol>
-<li>注册GitHub账户，新建一个项目，项目名称为用户名.github.io 这个是必须的。</li>
-<li><p>修改本地hexo站点的配置文件_config.yml，在Deployment部分添加git仓库和提交的分支角色</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#Deployment</span><br><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repository: https://github.com/chenygie/chenygie.github.io</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>部署，可能需要验证密码，等待少许时间。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br><span class="line">hexo d #部署的命令</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>完成。</p>
-<ol start="4">
-<li><p>发布自己的博文</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new &quot;postName&quot;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>文章编辑完后，发布：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">hexo server # 本地查看</span><br><span class="line">hexo generate # 生成静态文本</span><br><span class="line">hexo deploy # 部署到远程服务器中</span><br><span class="line">hexo s</span><br><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/07/03/Hexo和GitHub搭建博客/" data-id="cjjflcfc50000jk15go3p6eev" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/07/03/hello-world/" class="article-date">
-  <time datetime="2018-07-03T06:40:28.861Z" itemprop="datePublished">2018-07-03</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/07/03/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/07/03/hello-world/" data-id="cjjflcfcp0004jk159hdqrnwp" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-
 
 </section>
         
