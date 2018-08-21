@@ -88,11 +88,231 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <p>[TOC]</p>
+<p>IMSI是国际移动用户识别码 ，是区别移动用户的标志，储存在SIM卡中，可用于区别移动用户的有效信息</p>
+<p>手机终端每隔一段时间（例如5秒）会扫描附近运营商的信号，选取信号强的基站进行连接</p>
+<p>终端连接基站的时候如果有位置区LAC（2G）或跟踪区TAC(4G)变化，那么终端就会发起位置更新请求</p>
+<p>由于系统必须要识别终端是否合法，所以终端会应要求，然后上传IMSI、IMEI等信息</p>
+<p>伪基站就是利用这一动作，伪装成正常基站，诱导终端连接到伪基站上，通过位置更新动作，抓取用户IMSI，并伪装成任意号码对所有抓取到的IMSI群发短信，达到广告、钓鱼、诈骗的目的</p>
+<h1 id="伪基站识别"><a href="#伪基站识别" class="headerlink" title="伪基站识别"></a>伪基站识别</h1><p>伪基站通过信号强度将手机吸入网络，手机发现进入一个新的位置区，向伪基站发起位置变更请求，伪基站不可能像正常基站一样通过VLR、MSC、HLR查询IMSI，但根据正常流程可以向MS要求上报IMSI，于是手机上报IMSI等信息被伪基站获取</p>
+<p>手机被踢出伪基站网络后，会带上变更前的位置区信息访问正常网络，这个时候就可以根据其更新前的位置区信息来辨别伪基站</p>
+<h2 id="通过LAC识别2G伪基站"><a href="#通过LAC识别2G伪基站" class="headerlink" title="通过LAC识别2G伪基站"></a>通过LAC识别2G伪基站</h2><p>用户被踢出伪基站的时候，在信令数据中会生成位置变更的数据，包含变更前和变更后的LAC和CI</p>
+<p>变更前基站的LAC、CI会是异常值，例如65534、0、或异地基站，或无法查询到的基站，统计变更后基站下异常基站数据出现次数，分析得出伪基站出没小区</p>
+<h2 id="通过TAC识别4G伪基站"><a href="#通过TAC识别4G伪基站" class="headerlink" title="通过TAC识别4G伪基站"></a>通过TAC识别4G伪基站</h2><p>4G基站和2G基站识别位置区域的方式不同，通过TAC、CI、PCI定位一个小区，但都是通过位置更新获取用户信息，其信令包含位置变更前后的TAC、PCI</p>
+<p>统计变更前后异常TAC、PCI出现次数，分析得出伪基站出没小区</p>
+<h2 id="通过LTE网络的ANR功能识别4G伪基站"><a href="#通过LTE网络的ANR功能识别4G伪基站" class="headerlink" title="通过LTE网络的ANR功能识别4G伪基站"></a>通过LTE网络的ANR功能识别4G伪基站</h2><p>准备全网邻区配置表</p>
+<p>准备一定时间内服务小区和邻区关系</p>
+<p>如果小区下有上报CGI，那么该小区下有UE开启ANR功能</p>
+<p>统计小区内邻区一定时间内漏配邻区上报数量</p>
+<p>统计小区内邻区一定时间内信号强度大的数量</p>
+<p>将漏配邻区数量和信号强度异常的数量综合分析，得出伪基站出没小区</p>
+<h2 id="通过基站用户数变动情况识别伪基站"><a href="#通过基站用户数变动情况识别伪基站" class="headerlink" title="通过基站用户数变动情况识别伪基站"></a>通过基站用户数变动情况识别伪基站</h2><p>伪基站覆盖范围能够达到几百米，通常出现在人数较多的区域，工作时会通过一些手段屏蔽附近网络，比如用超出运营商基站的信号强度的信号，用户会断开与正常基站的连接，10s中左右会重新连回到正常基站，这段时间基站下连接频次必然会出现波动</p>
+<p>所以可统计一定周期内基站下号码出入网络频数，根据频次波动情况可分析基站下可能存在伪基站</p>
+<h2 id="伪基站轨迹"><a href="#伪基站轨迹" class="headerlink" title="伪基站轨迹"></a>伪基站轨迹</h2><p>当伪基站被识别后，可以按伪基站基站位置随时间的变化来推断伪基站轨迹</p>
+<p>也可以通过长时间的伪基站识别，区分仿真基站、公安伪基站等</p>
+<h1 id="伪基站工作原理"><a href="#伪基站工作原理" class="headerlink" title="伪基站工作原理"></a>伪基站工作原理</h1><h2 id="手机吸入"><a href="#手机吸入" class="headerlink" title="手机吸入"></a>手机吸入</h2><ul>
+<li>工程手机获取邻近小区基站的广播频率，并测量场强</li>
+<li>选择广播信号最弱的小区频率，发射伪装后的广播，广播信号强度相对较强，位置区和当前位置区不同</li>
+<li>手机扫描信号后接入伪基站</li>
+<li>手机发现位置区变更，发起位置更新</li>
+<li>伪基站发出识别请求</li>
+<li>手机反馈IMSI、IMEI等，伪基站成功获取用户信息</li>
+<li>伪基站根据IMSI判断是否已发送短信，若未发，则设置任意主叫号码，于独立专用信道发送短信</li>
+</ul>
+<h2 id="手机踢出"><a href="#手机踢出" class="headerlink" title="手机踢出"></a>手机踢出</h2><p>手机小区重选，接入正常基站</p>
+<ul>
+<li>正常位置更新<ul>
+<li>伪基站变更位置区并广播</li>
+<li>手机发现位置区变更，发起位置更新</li>
+<li>伪基站判断是否已发短信，已发则拒绝位置更新</li>
+<li>小区重选，接入正常基站</li>
+</ul>
+</li>
+<li>周期性位置更新<ul>
+<li>伪基站设置计时器</li>
+<li>用户按照计时器计时</li>
+<li>逾时触发位置更新</li>
+<li>伪基站拒绝位置更新</li>
+<li>小区重选，接入正常基站</li>
+</ul>
+</li>
+<li>手机终端发现无法使用服务</li>
+</ul>
+<h1 id="手机位置更新"><a href="#手机位置更新" class="headerlink" title="手机位置更新"></a>手机位置更新</h1><h2 id="正常位置更新"><a href="#正常位置更新" class="headerlink" title="正常位置更新"></a>正常位置更新</h2><p>正常位置更新的前提条件</p>
+<ul>
+<li>VLR中MS的状态未知</li>
+<li>MS从一个LAI小区重选至另外一个LAI小区</li>
+</ul>
+<h3 id="VLR内部位置更新"><a href="#VLR内部位置更新" class="headerlink" title="VLR内部位置更新"></a>VLR内部位置更新</h3><p>VLR内部位置更新不需要提供IMSI号码，在VLR中进行，不需要通知HLR.</p>
+<ul>
+<li>在初始化过程中，MS向网络发送位置更新请求，并携带MS的TMSI号码及LAI号码，并标注为正常位置更新。</li>
+<li>MSC收到MS发送的位置更新请求后，将向VLR发送位置区更新消息。</li>
+<li>VLR收到位置更新消息后进行位置更新处理，VLR将更新MS位置消息并存储新的LAI号码，并根据需要给MS分配一个新的TMSI号码（此时进入TMSI再分配程序）。</li>
+</ul>
+<blockquote>
+<p>注意：此时TMSI再分配命令也可以不携带新的TMSI号码，MS将使用以前的TMSI号码。</p>
+</blockquote>
+<ul>
+<li>当收到MS发送给网络的TMSI再分配完成消息后，VLR将向MSC发送位置区更新确认消息。</li>
+<li>MSC收到该消息后则向MS发送位置更新接受消息，之后释放信道，完成位置更新。</li>
+</ul>
+<h3 id="越VLR的位置更新"><a href="#越VLR的位置更新" class="headerlink" title="越VLR的位置更新"></a>越VLR的位置更新</h3><ul>
+<li>在初始化过程中，MS向网络发送位置更新请求，并携带MS的TMSI号码及LAI号码，并标注为正常位置更新。</li>
+<li>MSC收到MS发送的位置更新请求后，将向VLR发送位置区更新消息。</li>
+<li>当VLR从MSC收到位置更新消息中的TMSI未知，根据旧TMSI和LAI号算出PVLR地址</li>
+<li>向PVLR启动一个请求IMSI和鉴权参数的发参数指示。</li>
+<li>PVLR将回发该MS的IMSI和鉴权参数。</li>
+<li>当VLR由于种种原因无法获得IMSI号码，则向MS发出识别请求，请求MS提供IMSI。</li>
+<li>VLR得到IMSI后，将向MS所属的HLR发出位置更新消息，此消息中包括MS的标识及相关信息，以便HLR查询数据及建立路径。</li>
+<li>VLR将对MS进行鉴权加密，并根据需要给MS分配一个新的TMSI号码（此时进入TMSI再分配程序）。</li>
+</ul>
+<blockquote>
+<p>注意：此时TMSI再分配命令也可以不携带新的TMSI号码，MS将使用以前的TMSI号码。</p>
+</blockquote>
+<ul>
+<li>HLR收到更新消息后，并且MS在新的VLR有正常业务权限，则HLR存储当前的VLR号码，并向PVLR发出删除位置消息。</li>
+<li>PVLR收到删除位置消息后，将删除该MS的所有信息，并向HLR发送删除位置确认消息。</li>
+<li>当完成鉴权加密TMSI再分配后，HLR将发起插入用户数据消息，为VLR提供所需用户信息，包括鉴权参数等。</li>
+<li>VLR收到所需信息后，将向HLR发送插入用户数据响应消息。</li>
+<li>当HLR收到VLR插入用户数据响应后，则向VLR发出更新确认消息</li>
+<li>之后VLR将向MSC发送位置区更新确认消息。</li>
+<li>MSC收到该消息后则向MS发送位置更新接受消息，之后释放信道，完成位置更新。</li>
+</ul>
+<h3 id="IMSI更新"><a href="#IMSI更新" class="headerlink" title="IMSI更新"></a>IMSI更新</h3><p>当用户识别为IMSI时：</p>
+<ul>
+<li><p>当VLR从MSC收到位置更新消息中的IMSI未知，则将发起HLR更新</p>
+</li>
+<li><p>当收到IMSI是已知的， VLR则检查从MSC接收的们前一个位置区标识（LAI）是否属于此VLR，如果不属于则发起HLR更新。</p>
+</li>
+</ul>
+<blockquote>
+<p>注意：当以上两种情况发生时，均要进行鉴权检查</p>
+</blockquote>
+<h2 id="周期性位置更新"><a href="#周期性位置更新" class="headerlink" title="周期性位置更新"></a>周期性位置更新</h2><p>周期位置更新发生在当网络在特定的时间内没有收到来自MS任何信息。比如在某些特定条件下由于无线链路质量很差，网络无法接收MS的正确消息，而此时MS还处于开机状态并接收网络发来的消息，在这种情况下网络无法知道MS所处的状态。为了解决这一问题，系统采取了强制登记措施。如系统要求移动用户在一特定时间内，例如一个小时，登记一次。这种位置登记过程就叫做周期位置更新。</p>
+<blockquote>
+<p>注意：</p>
+<p>当T3212逾时后，MS启动周期性位置更新，进入位置更新程序。</p>
+<p>周期性位置更新信令流程与正式常位置更信令流程是一致的。</p>
+</blockquote>
+<p><strong>网络失去与MS的联系原因：</strong></p>
+<ul>
+<li><p>MS开机移动至网络盲区，网络仍会认为IMSI附着（用户开机）；</p>
+</li>
+<li><p>MS IMSI分离（关机）时，无线路径上行链路故障，网络不能正确译码，网络仍会认为IMSI附着（用户开机）；</p>
+</li>
+<li><p>MS突然掉电，网络仍会认为IMSI附着（用户开机）；</p>
+</li>
+</ul>
+<blockquote>
+<p>注意：</p>
+<p>当网络发现VLR标识IMSI附着的MS在一段时间内，没有与网络进行任何联系，将更改为该MS标识为隐含关机状态。</p>
+</blockquote>
+<p><strong>周期性位置更新的目的：</strong></p>
+<ul>
+<li><p>周期性的通知网络MS的可用性。</p>
+</li>
+<li><p>迫使MS在经过一定时间后，自动向网络报告它目前的位置，这样网络就可以随时了解MS的当前状态。</p>
+</li>
+</ul>
+<p><strong>周期性位置更新需要特别注意的几点说明：</strong></p>
+<ul>
+<li><p>当T3212逾时后，MS启动周期性位置更新，进入位置更新程序。并将T3212清零，从新计时。</p>
+</li>
+<li><p>当T3212逾时时，MS处于无可用小区、有限服务、搜索PLMN的状态时，MS将延时启动位置更新，直到脱离这些状态。</p>
+</li>
+<li><p>当MS处于无可用小区、有限服务、搜索PLMN的状态时，T3212的值当保持原值不能改变。</p>
+</li>
+</ul>
+<h2 id="IMSI附着"><a href="#IMSI附着" class="headerlink" title="IMSI附着"></a>IMSI附着</h2><pre><code>MS开机时，MS将把自己的开机状态通知给网络，向网络发送IMSI附着的报文。网络收到该消息后将注明用户状态，以便当寻呼发生时，可以发起寻呼。
+
+IMSI的附着与分离就是在MSC/VLR中用户记录上附加一个二进制标志。
+
+IMSI附着：标志为允许接入
+
+IMSI分离：标志为不可接入
+
+
+
+当用户开机时发现SIM卡中LAI与网络LAI号一致，则进行IMSI附着，其过程与VLR内部位置更新过程基本一样，不同的是，仅在位置更新请求，标注为IMSI附着。
+</code></pre><blockquote>
+<p>注：IMSI附着、分离是系统的一个可选项。</p>
+</blockquote>
+<h1 id="名词解释"><a href="#名词解释" class="headerlink" title="名词解释"></a>名词解释</h1><ul>
+<li><p>IMSI:国际移动用户识别码（International Mobile Subscriber Identification Number）是区别移动用户的标志，储存在SIM卡中，可用于区别移动用户的有效信息</p>
+</li>
+<li><p>IMEI:国际移动设备识别码（International Mobile Equipment Identity）用于在GSM移动网络中识别每一部独立的手机，相当于手机的身份证号码，另CDMA手机采用MEID码，与IMEI码有所区别，但也是唯一的识别码</p>
+</li>
+<li><p>MS:移动台（mobile station）移动用户的终端设备，可以分为车载型、便携型和手持型。其中手持型俗称“手机”</p>
+</li>
+<li><p>LAC:位置区码（location area code）为寻呼而设置的一个区域，覆盖一片地理区域，初期一般按行政区域划分（一个县或一个区）,现在按寻呼量划分</p>
+</li>
+<li><p>LAI：位置区识别码（Location Area Identity）</p>
+<p>用于移动用户的位置更新。其结构如下：</p>
+<p>LAI=MCC+MNC+LAC</p>
+<p>MCC=移动国家号，与IMSI中的MCC一样具有3个数字，用于识别一个国家，中国为460。</p>
+<p>MNC=移动网号，识别国内GSM网，与IMSI中的MNC的值是一样的：</p>
+<ul>
+<li><p>00：中国移动</p>
+</li>
+<li><p>01：中国联通</p>
+</li>
+<li><p>02：中国移动TD</p>
+</li>
+<li><p>03：中国电信</p>
+</li>
+<li>11：中国电信4G</li>
+</ul>
+<p>LAC=位置区码，识别一个GSM网中的位置区</p>
+</li>
+<li><p>TAC：跟踪区域码（Tracking Area Code）在LTE网络中本参数定义了小区所属的跟踪区域码，一个跟踪区域可以涵盖一个或者多个小区</p>
+</li>
+<li><p>TAI：LTE的跟踪区标识（Tracking Area Identity），是由PLMN和TAC组成。</p>
+<p>TAI = PLMN + TAC</p>
+</li>
+<li><p>PLMN：公共陆地移动网络（Public Land Mobile Network）</p>
+<p>PLMN = MCC + MNC</p>
+</li>
+<li><p>VLR：拜访位置寄存器（Visitor Location Register），是一个动态数据库，一般与MSC合设，存储所管辖区域中MS的来话、去话呼叫所需检索的信息以及用户签约业务和附加业务的信息，例如客户的号码，所处位置区域的识别，向客户提供的服务等参数</p>
+</li>
+<li><p>HLR：归属位置寄存器（Home Location Register），是一个负责移动用户管理的数据库，永久存储和记录所辖区域内用户的签约数据，并动态地更新用户的位置信息，以便在呼叫业务中提供被呼叫用户的网络路由</p>
+</li>
+<li><p>MSC：移动交换中心（Mobile Switching Center），通信系统的核心网元之一，是在电话和数据系统之间提供呼叫转换服务和呼叫控制的设备。</p>
+</li>
+<li><p>TMSI：临时移动用户标识（Temporary Mobile Subscriber Identity），用户移动到某个位置区下时，由VLR分配的临时标识，只在一个位置区的某一段时间内有效</p>
+</li>
+<li><p>PVLR：位置更新前MS所属的VLR</p>
+</li>
+<li><p>T3212：周期性位置更新计时器，当T3212超时，将进行周期性位置更新</p>
+</li>
+<li><p>ANR：邻区自动优化（Automatic Neighbor Relatior）UE检查到信号更强的PCI时，UE上报MR消息（仅包含PCI，不包含CGI），由于系统中没有目标切换小区的邻区，eNodeB要求UE上报目标邻区的CGI，手机再次上报MR消息（包含CGI），ANR将自动在邻区列表中添加漏配邻区，这样用户就能连上漏配邻区</p>
+</li>
+<li><p>UE：用户终端（User Equipment），3G和4G网络中，用户终端就叫做UE，相当于2G网络中的MS</p>
+</li>
+<li><p>MR：测量报告（Measurement Report），包含当前小区基站广播信息实际接收值</p>
+</li>
+<li><p>PCI：物理小区标识（Physical Cell Identifier），LTE中终端以此区分不同小区的无线信号，LTE系统提供504个PCI，与扰码概念类似，不同小区间可复用，所以规划的时候需要合理分配，确保同频同PCI的小区下行信号之间不会互相产生干扰</p>
+</li>
+<li><p>CGI：全球小区识别码（Cell Global Identifier）是用来识别一个小区（基站/一个扇形小区）所覆盖的区域，CGI是在LAI的基础上再加小区识别码（CID）构成的。</p>
+<p>其结构是</p>
+<p>MCC+MNC+LAC+CID</p>
+<p>在LTE网络中为MCC+MNC+ENODEB_ID+CID</p>
+<p>MCC：移动国家码</p>
+<p>MNC：移动网络码</p>
+<p>LAC：位置区号码</p>
+<p>CID：小区标识码</p>
+<p>ENODEB_ID：eNodeB标识码</p>
+<p>TAC：区域跟踪码</p>
+<p>其中MCC\MNC\LAC为位置区标识（LAI）</p>
+<p>其中CID为2Byte的BCD码，由各MSC自定</p>
+</li>
+<li><p>eNodeB：演进型Node B（Evolved Node B），简称eNB，LTE中基站的名称</p>
+</li>
+</ul>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/08/21/PseudoBaseStation/" data-id="cjl3f0irg0000qa150x5o0y5m" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/08/21/PseudoBaseStation/" data-id="cjl3ifnc80004x015jxss9gg2" class="article-share-link">Share</a>
       
       
     </footer>
@@ -130,7 +350,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/07/10/finding-donors-1st/" data-id="cjl3f0is60004qa151w25ge2d" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/07/10/finding-donors-1st/" data-id="cjl3ifnc20002x0158ip1ritg" class="article-share-link">Share</a>
       
       
     </footer>
@@ -227,7 +447,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/07/10/finding-donors-2nd/" data-id="cjl3f0isg0006qa150zorifs0" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/07/10/finding-donors-2nd/" data-id="cjl3ifncd0005x015m6jcf1km" class="article-share-link">Share</a>
       
       
     </footer>
@@ -264,7 +484,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/07/10/change-themes/" data-id="cjl3f0is20003qa156zsove3b" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/07/10/change-themes/" data-id="cjl3ifnbu0001x0154yxqa9r5" class="article-share-link">Share</a>
       
       
     </footer>
@@ -338,7 +558,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/07/04/Hong-yi-Lee-course/" data-id="cjl3f0is00002qa15nyb5bzq0" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/07/04/Hong-yi-Lee-course/" data-id="cjl3ifnc50003x0159a8g0xwz" class="article-share-link">Share</a>
       
       
     </footer>
@@ -399,7 +619,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/07/03/Hexo和GitHub搭建博客/" data-id="cjl3f0irq0001qa15jcl0pq2d" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/07/03/Hexo和GitHub搭建博客/" data-id="cjl3ifnbm0000x0151cespouo" class="article-share-link">Share</a>
       
       
     </footer>
@@ -444,7 +664,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/07/03/hello-world/" data-id="cjl3f0isc0005qa15pbuwa5jo" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/07/03/hello-world/" data-id="cjl3ifnch0006x015yfcyvcx2" class="article-share-link">Share</a>
       
       
     </footer>
