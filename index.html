@@ -88,13 +88,16 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 引用模块</span></span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="comment"># 导入数据</span></span><br><span class="line">train = pd.read_csv(<span class="string">'train.csv'</span>)</span><br><span class="line">test = pd.read_csv(<span class="string">'test.csv'</span>)</span><br><span class="line">submit = pd.read_csv(<span class="string">'sample_submit.csv'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 初始设置</span></span><br><span class="line">beta = [<span class="number">1</span>, <span class="number">1</span>]</span><br><span class="line">alpha = <span class="number">0.2</span></span><br><span class="line">tol_L = <span class="number">0.1</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 对x进行归一化</span></span><br><span class="line">max_x = max(train[<span class="string">'id'</span>])</span><br><span class="line">x = train[<span class="string">'id'</span>] / max_x</span><br><span class="line">y = train[<span class="string">'questions'</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义计算梯度的函数</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">compute_grad</span><span class="params">(beta, x, y)</span>:</span></span><br><span class="line">    grad = [<span class="number">0</span>, <span class="number">0</span>]</span><br><span class="line">    grad[<span class="number">0</span>] = <span class="number">2.</span> * np.mean(beta[<span class="number">0</span>] + beta[<span class="number">1</span>] * x - y)</span><br><span class="line">    grad[<span class="number">1</span>] = <span class="number">2.</span> * np.mean(x * (beta[<span class="number">0</span>] + beta[<span class="number">1</span>] * x - y))</span><br><span class="line">    <span class="keyword">return</span> np.array(grad)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义更新beta的函数</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">update_beta</span><span class="params">(beta, alpha, grad)</span>:</span></span><br><span class="line">    new_beta = np.array(beta) - alpha * grad</span><br><span class="line">    <span class="keyword">return</span> new_beta</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义计算RMSE的函数</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">rmse</span><span class="params">(beta, x, y)</span>:</span></span><br><span class="line">    squared_err = (beta[<span class="number">0</span>] + beta[<span class="number">1</span>] * x - y) ** <span class="number">2</span></span><br><span class="line">    res = np.sqrt(np.mean(squared_err))</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 进行初次迭代</span></span><br><span class="line">grad = compute_grad(beta,x,y)</span><br><span class="line">loss = rmse(beta,x,y)</span><br><span class="line">beta = update_beta(beta,alpha,grad)</span><br><span class="line">loss_new = rmse(beta,x,y)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 开始迭代</span></span><br><span class="line">i = <span class="number">1</span></span><br><span class="line"><span class="keyword">while</span> np.abs(loss_new - loss) &gt; tol_L:</span><br><span class="line">    beta = update_beta(beta,alpha,grad)</span><br><span class="line">    grad = compute_grad(beta,x,y)</span><br><span class="line">    loss = loss_new</span><br><span class="line">    loss_new = rmse(beta,x,y)</span><br><span class="line">    i = i +<span class="number">1</span></span><br><span class="line">    print(<span class="string">'Round %s Diff RMSE %s'</span>%(i, abs(loss_new - loss)))</span><br><span class="line">print(<span class="string">'Coef: %s \nIntercept %s'</span>%(beta[<span class="number">1</span>]/max_x, beta[<span class="number">0</span>]))</span><br></pre></td></tr></table></figure>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/12/18/gradient-descent/" data-id="cjpt81tal000bop15j43z0d4t" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/12/18/gradient-descent/" data-id="cjpt84pm40004ql15caizjnnd" class="article-share-link">Share</a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Machine-Learning/">Machine Learning</a></li></ul>
+
     </footer>
   </div>
   
@@ -128,7 +131,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/12/06/linear-regression-gluon/" data-id="cjpt81t9z0006op159409znw4" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/12/06/linear-regression-gluon/" data-id="cjpt84pmp0009ql15dd2n4r6h" class="article-share-link">Share</a>
       
       
     </footer>
@@ -165,7 +168,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/12/06/linear-regression-sources-md/" data-id="cjpt81ta10007op15fnoxzc86" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/12/06/linear-regression-sources-md/" data-id="cjpt84pms000bql1564c6owe0" class="article-share-link">Share</a>
       
       
     </footer>
@@ -215,7 +218,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/12/05/regression/" data-id="cjpt81ta30008op15k5bwb2zn" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/12/05/regression/" data-id="cjpt84pmv000cql15vtw8f1ix" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linear-regression/">linear regression</a></li></ul>
@@ -473,7 +476,7 @@ IMSI分离：标志为不可接入
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/08/21/PseudoBaseStation/" data-id="cjpt81t9r0003op15ef6xwcer" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/08/21/PseudoBaseStation/" data-id="cjpt84plw0002ql15cgyb7n88" class="article-share-link">Share</a>
       
       
     </footer>
@@ -511,7 +514,7 @@ IMSI分离：标志为不可接入
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/07/10/finding-donors-1st/" data-id="cjpt81t9u0004op15w98cqbgb" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/07/10/finding-donors-1st/" data-id="cjpt84plz0003ql15ozblbdml" class="article-share-link">Share</a>
       
       
     </footer>
@@ -608,7 +611,7 @@ IMSI分离：标志为不可接入
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/07/10/finding-donors-2nd/" data-id="cjpt81t9x0005op15vmnk4xj9" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/07/10/finding-donors-2nd/" data-id="cjpt84pmk0007ql151fluydtr" class="article-share-link">Share</a>
       
       
     </footer>
@@ -645,7 +648,7 @@ IMSI分离：标志为不可接入
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/07/10/change-themes/" data-id="cjpt81t9p0002op159t5nxp72" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/07/10/change-themes/" data-id="cjpt84pm90005ql15t3f5iceu" class="article-share-link">Share</a>
       
       
     </footer>
@@ -719,7 +722,7 @@ IMSI分离：标志为不可接入
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/07/04/Hong-yi-Lee-course/" data-id="cjpt81t9a0000op155km7ujvb" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/07/04/Hong-yi-Lee-course/" data-id="cjpt84plp0001ql15ioerulb0" class="article-share-link">Share</a>
       
       
     </footer>
@@ -780,7 +783,7 @@ IMSI分离：标志为不可接入
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/07/03/Hexo和GitHub搭建博客/" data-id="cjpt81t9i0001op156jnlu7ie" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/07/03/Hexo和GitHub搭建博客/" data-id="cjpt84plh0000ql15ko6uvnw1" class="article-share-link">Share</a>
       
       
     </footer>
@@ -808,7 +811,7 @@ IMSI分离：标志为不可接入
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/linear-regression/">linear regression</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine-Learning/">Machine Learning</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linear-regression/">linear regression</a></li></ul>
     </div>
   </div>
 
@@ -818,7 +821,7 @@ IMSI分离：标志为不可接入
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/linear-regression/" style="font-size: 10px;">linear regression</a>
+      <a href="/tags/Machine-Learning/" style="font-size: 10px;">Machine Learning</a> <a href="/tags/linear-regression/" style="font-size: 10px;">linear regression</a>
     </div>
   </div>
 
